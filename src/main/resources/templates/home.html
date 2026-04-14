@@ -4,52 +4,124 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <style>
-        body { font-family: sans-serif; margin: 20px; }
-        table { width: 60%; border-collapse: collapse; margin-top: 10px; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f9f9f9; }
-        .btn { padding: 5px 10px; cursor: pointer; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 30px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header {
+            border-bottom: 2px solid #f1f3f5;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        .header h2 {
+            margin: 0 0 5px 0;
+            color: #0d6efd;
+        }
+        .header p {
+            margin: 0;
+            color: #6c757d;
+        }
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .btn {
+            padding: 8px 16px;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+        .btn-primary { background-color: #0d6efd; }
+        .btn-primary:hover { background-color: #0b5ed7; }
+
+        .btn-danger { background-color: #dc3545; }
+        .btn-danger:hover { background-color: #c82333; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+        tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+        .empty-state {
+            text-align: center;
+            color: #adb5bd;
+            font-style: italic;
+            padding: 30px !important;
+        }
     </style>
 </head>
 <body>
 
-<h2>MY Website 20240140074</h2>
-<p>Selamat datang di aplikasi!</p>
+<div class="container">
+    <div class="header">
+        <h2>MY Website 20240140074</h2>
+        <p>Selamat datang di aplikasi!</p>
+    </div>
 
-<a href="/form">
-    <button class="btn">Input Data Mahasiswa</button>
-</a>
+    <div class="action-bar">
+        <h3>Data Mahasiswa</h3>
+        <div>
+            <a th:href="@{/form}" class="btn btn-primary" style="margin-right: 10px;">+ Input Data</a>
+            <a th:href="@{/logout}" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
 
-<br><br>
-
-<h3>Data Mahasiswa</h3>
-<a href="/logout">
-    <button class="btn">Logout</button>
-</a>
-
-<br><br>
-
-<table>
-    <thead>
-    <tr>
-        <th>No</th>
-        <th>Nama</th>
-        <th>NIM</th>
-        <th>Jenis Kelamin</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:if="${#lists.isEmpty(mahasiswaList)}">
-        <td colspan="4" style="text-align: center; color: gray;">Belum ada data</td>
-    </tr>
-    <tr th:each="mhs, iterStat : ${mahasiswaList}">
-        <td th:text="${iterStat.count}"></td>
-        <td th:text="${mhs.nama}"></td>
-        <td th:text="${mhs.nim}"></td>
-        <td th:text="${mhs.jenisKelamin}"></td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <thead>
+        <tr>
+            <th style="width: 5%;">No</th>
+            <th>Nama</th>
+            <th style="width: 25%;">NIM</th>
+            <th style="width: 25%;">Jenis Kelamin</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(mahasiswaList)}">
+            <td colspan="4" class="empty-state">Belum ada data mahasiswa yang diinput.</td>
+        </tr>
+        <tr th:each="mhs, iterStat : ${mahasiswaList}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${mhs.nama}"></td>
+            <td th:text="${mhs.nim}"></td>
+            <td th:text="${mhs.jenisKelamin}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
