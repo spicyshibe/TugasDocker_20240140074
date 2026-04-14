@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Form Input Mahasiswa</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        input[type="text"] { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        .btn-submit { background-color: #0d6efd; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; }
+        .btn-submit:hover { background-color: #0b5ed7; }
+    </style>
 </head>
 <body>
+
+<h2>Form Input Mahasiswa</h2>
+
+<form action="/form" method="post" th:object="${user}" style="max-width: 400px;">
+    <div class="form-group">
+        <label>Nama:</label>
+        <input type="text" th:field="*{nama}" required>
+    </div>
+
+    <div class="form-group">
+        <label>NIM:</label>
+        <input type="text" th:field="*{nim}" required>
+    </div>
+
+    <div class="form-group">
+        <label>Jenis Kelamin:</label><br><br>
+        <input type="radio" th:field="*{jenisKelamin}" value="Laki-laki" id="laki" required>
+        <label for="laki">Laki-laki</label><br><br>
+
+        <input type="radio" th:field="*{jenisKelamin}" value="Perempuan" id="perempuan" required>
+        <label for="perempuan">Perempuan</label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn-submit">Submit</button>
+    </div>
+</form>
+
+<br>
+<a href="/home" style="text-decoration: none; color: #0d6efd;">Kembali ke Home</a>
 
 </body>
 </html>
